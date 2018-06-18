@@ -12,6 +12,7 @@ export class ShoppingCartComponent implements OnInit {
   productTitles: string[] = [];
   productQuantities: number[] = [];
   productPrice: number[] = [];
+  productImage: string[] = [];
 
   constructor(private shoppingCartService: ShoppingCartService) {
   }
@@ -23,8 +24,7 @@ export class ShoppingCartComponent implements OnInit {
     }
     return sum;
   }
-
-  async ngOnInit() {
+   async ngOnInit() {
     this.cart$ = await this.shoppingCartService.getCart();
     this.cart$.subscribe(cart => {
       this.shoppingCartItemCount = 0;
@@ -33,6 +33,7 @@ export class ShoppingCartComponent implements OnInit {
         this.productQuantities.push(cart.items[productId].quantity);
         this.productTitles.push(cart.items[productId].product.title);
         this.productPrice.push(cart.items[productId].product.price);
+        this.productImage.push(cart.items[productId].product.imageUrl);
       }
     });
   }
